@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ru">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Главная страница</title>
+    <title>Просмотр объявления</title>
 </head>
 
 <body>
@@ -19,12 +19,14 @@
 
 <div class="container-fluid text-center">
     <div>
-        <h1>Добро пожаловать на сайт</h1>
-        <p>Сайт с объявлениями пользователей</p>
+        <h1>Просмотр объявления</h1>
     </div>
     <hr/>
-    <div th:each="message : ${messages}">
-        <h3><a th:href="@{'/details/' + ${message.id}}"><p th:text="${message.title}"></p></a> </h3>
+    <div>
+        <h3 th:text="${selectedAd.title}"></h3>
+        <p th:text="${selectedAd.content}"></p>
+        <p th:text="'id: ' + ${selectedAd.id}"></p>
+        <p th:text="'дата создания: ' + ${dateSelectedAd}"></p>
         <hr/>
     </div>
 </div>

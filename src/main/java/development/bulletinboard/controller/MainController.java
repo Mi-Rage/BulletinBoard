@@ -2,12 +2,11 @@ package development.bulletinboard.controller;
 
 import development.bulletinboard.model.AdForm;
 import development.bulletinboard.service.AdFormService;
+import development.bulletinboard.utility.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MainController {
@@ -35,6 +34,14 @@ public class MainController {
     public String submitArticle(@ModelAttribute AdForm adForm) {
         service.saveForm(adForm);
         return "redirect:../";
+    }
+
+    @RequestMapping(value = "/details/{id}")
+    public String detailsPage(Model model, @PathVariable("id") int id) {
+        AdForm adForm = service.getAdFormById(id);
+        model.addAttribute("selectedAd", adForm);
+        model.addAttribute("dateSelectedAd", Util.getTimeFromStamp(adForm.getCreationTimestamp()));
+        return "details";
     }
 
     @RequestMapping(value = "/login")

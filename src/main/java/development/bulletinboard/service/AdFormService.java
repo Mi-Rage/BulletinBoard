@@ -24,14 +24,18 @@ public class AdFormService {
     }
 
     public void saveForm(AdForm adForm) {
-        long counter = lastIdRepository() + 1;
-        adForm.setId((int) counter);
+        int counter = lastIdRepository() + 1;
+        adForm.setId(counter);
         repository.save(adForm);
         System.out.println(adForm.toString());
     }
 
     public int lastIdRepository(){
         return (int) repository.count();
+    }
+
+    public AdForm getAdFormById(int id) {
+        return repository.findById(id).get();
     }
     public List<AdForm> getLastAdForms() {
         return StreamSupport

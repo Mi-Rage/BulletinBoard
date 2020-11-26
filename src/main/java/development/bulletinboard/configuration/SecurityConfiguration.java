@@ -17,12 +17,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity config) throws Exception {
         config
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/", "/details/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login").defaultSuccessUrl("/")
                 .permitAll();
+
 
     }
 

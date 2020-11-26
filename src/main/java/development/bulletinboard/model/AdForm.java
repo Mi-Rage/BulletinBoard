@@ -7,6 +7,7 @@ import java.io.Serializable;
 public class AdForm implements Serializable, Comparable<AdForm> {
 
     @Id
+    @Column
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -50,6 +51,10 @@ public class AdForm implements Serializable, Comparable<AdForm> {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public long getCreationTimestamp() {
+        return creationTimestamp;
     }
 
     @Override
