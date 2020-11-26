@@ -23,6 +23,7 @@
         <p>Сайт с объявлениями пользователей</p>
     </div>
     <hr/>
+    <span th:if="${messages.size() == 0}">Объявлений пока нет.</span>
     <div th:each="message : ${messages}">
         <h3><a th:href="@{'/details/' + ${message.id}}"><p th:text="${message.title}"></p></a> </h3>
         <hr/>
