@@ -1,7 +1,7 @@
 package development.bulletinboard.repository;
 
 import development.bulletinboard.model.AdForm;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AdFormRepository extends CrudRepository<AdForm, Integer> {
+public interface AdFormRepository extends JpaRepository<AdForm, Integer> {
 }

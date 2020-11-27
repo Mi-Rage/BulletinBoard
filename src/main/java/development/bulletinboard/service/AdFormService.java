@@ -12,7 +12,6 @@ import java.util.Spliterators;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-
 @Service
 public class AdFormService {
 
@@ -24,19 +23,14 @@ public class AdFormService {
     }
 
     public void saveForm(AdForm adForm) {
-        int counter = lastIdRepository() + 1;
-        adForm.setId(counter);
         repository.save(adForm);
         System.out.println(adForm.toString());
     }
 
-    public int lastIdRepository(){
-        return (int) repository.count();
+    public AdForm getAdFormById(int id) {
+        return repository.getOne(id);
     }
 
-    public AdForm getAdFormById(int id) {
-        return repository.findById(id).get();
-    }
     public List<AdForm> getLastAdForms() {
         return StreamSupport
                 .stream(

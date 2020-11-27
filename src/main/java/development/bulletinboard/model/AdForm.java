@@ -4,19 +4,20 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "adform")
 public class AdForm implements Serializable, Comparable<AdForm> {
 
     @Id
-    @Column
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
-    @Column
+    @Column(name = "title")
     private String title;
-    @Column
+    @Column(name = "content")
     private String content;
-    @Column
-    private final long creationTimestamp;
+    @Column(name = "timestamp")
+    private long creationTimestamp;
 
     public AdForm() {
         this.creationTimestamp = System.currentTimeMillis();
@@ -57,6 +58,10 @@ public class AdForm implements Serializable, Comparable<AdForm> {
         return creationTimestamp;
     }
 
+    public void setCreationTimestamp(long creationTimestamp) {
+        this.creationTimestamp = creationTimestamp;
+    }
+
     @Override
     public int compareTo(AdForm that) {
         return Long.compare(this.creationTimestamp, that.creationTimestamp);
@@ -64,6 +69,6 @@ public class AdForm implements Serializable, Comparable<AdForm> {
 
     @Override
     public String toString(){
-        return this.id + " / " + this.title + " / " + this.content;
+        return String.format("AdForm: id:%d, title:%s, content:%s, time:%d", id, title, content, creationTimestamp);
     }
 }
