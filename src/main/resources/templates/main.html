@@ -8,17 +8,22 @@
     <title>Главная страница</title>
 </head>
 
+<body>
+
+<div th:replace="~{navigation :: navigation('Объявления')}"></div>
+
 <div class="container-fluid text-left">
-    <div th:replace="~{navigation :: navigation('Объявления')}"></div>
-    <div>
-        <h1>Добро пожаловать на сайт</h1>
-        <p>Сайт с объявлениями пользователей</p>
-    </div>
-    <hr/>
-    <span th:if="${messages.size() == 0}">Объявлений пока нет.</span>
-    <div th:each="message : ${messages}">
-        <h3><a th:href="@{'/details/' + ${message.id}}"><p th:text="${message.title}"></p></a> </h3>
+    <div class="col-sm-8 text-left">
+        <div>
+            <h1>Добро пожаловать на сайт</h1>
+            <p>Сайт с объявлениями пользователей</p>
+        </div>
         <hr/>
+        <span th:if="${messages.size() == 0}">Объявлений пока нет.</span>
+        <div th:each="message : ${messages}">
+            <h3><a th:href="@{'/details/' + ${message.id}}"><p th:text="${message.title}"></p></a></h3>
+            <hr/>
+        </div>
     </div>
 </div>
 

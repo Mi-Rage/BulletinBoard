@@ -10,23 +10,26 @@
 
 <body>
 
+<div th:replace="~{navigation :: navigation('Добавить объявление')}"></div>
+
 <div class="container-fluid text-left">
-    <div th:replace="~{navigation :: navigation('Добавить объявление')}"></div>
     <div class="row content">
-        <form th:action="@{/addnew/submit}" th:object="${adform}" method="post">
-            <h1>Создание объявления</h1>
-            <div class="form-group">
-                <label for="usr">Название</label>
-                <input type="text" class="form-control" id="usr" th:field="*{title}" required="required"/>
-            </div>
-            <div class="form-group">
-                <label for="comment">Текст</label>
-                <textarea class="form-control" rows="20" id="comment" th:field="*{content}"
-                          required="required"></textarea>
-            </div>
-            <button type="submit" class="btn btn-success">Сохранить</button>
-        </form>
-        <hr/>
+        <div class="col-sm-8 text-left">
+            <form th:action="@{/addnew/submit}" th:object="${adform}" method="post">
+                <h1>Создание объявления</h1>
+                <div class="form-group">
+                    <label for="usr">Название</label>
+                    <input type="text" class="form-control" id="usr" th:field="*{title}" required="required"/>
+                </div>
+                <div class="form-group">
+                    <label for="comment">Текст</label>
+                    <textarea class="form-control" rows="20" id="comment" th:field="*{content}"
+                              required="required"></textarea>
+                </div>
+                <button type="submit" class="btn btn-success">Сохранить</button>
+            </form>
+            <hr/>
+        </div>
     </div>
 </div>
 </body>

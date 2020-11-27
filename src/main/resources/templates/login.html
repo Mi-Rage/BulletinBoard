@@ -10,9 +10,9 @@
 
 <body>
 
+<div th:replace="~{navigation :: navigation('Войти')}"></div>
 
 <div class="container-fluid text-left">
-    <div th:replace="~{navigation :: navigation('Войти')}"></div>
     <div class="row content">
         <div class="col-sm-4 text-left">
             <form th:action="@{/login}" method="post">

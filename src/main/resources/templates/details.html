@@ -10,19 +10,21 @@
 
 <body>
 
+<div th:replace="~{navigation :: navigation('Объявления')}"></div>
 
 <div class="container-fluid text-left">
-    <div th:replace="~{navigation :: navigation('Объявления')}"></div>
-    <div>
-        <h1>Просмотр объявления</h1>
-    </div>
-    <hr/>
-    <div>
-        <h3 th:text="${selectedAd.title}"></h3>
-        <p th:text="${selectedAd.content}"></p>
-        <p th:text="'id: ' + ${selectedAd.id}"></p>
-        <p th:text="'дата создания: ' + ${dateSelectedAd}"></p>
+    <div class="col-sm-8 text-left">
+        <div>
+            <h1>Просмотр объявления</h1>
+        </div>
         <hr/>
+        <div>
+            <h3 th:text="${selectedAd.title}"></h3>
+            <p th:text="${selectedAd.content}"></p>
+            <p th:text="'id: ' + ${selectedAd.id}"></p>
+            <p th:text="'дата создания: ' + ${dateSelectedAd}"></p>
+            <hr/>
+        </div>
     </div>
 </div>
 
