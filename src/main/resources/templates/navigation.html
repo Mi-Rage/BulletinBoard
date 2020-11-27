@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+
+<head>
+    <meta charset="utf-8"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+
+<div th:fragment="navigation(activeTab)">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item" th:classappend="${activeTab == 'Объявления' ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{/}">Объявления</a>
+                </li>
+                <li class="nav-item" th:classappend="${activeTab == 'Добавить объявление' ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{/addnew}">Добавить объявление</a>
+                </li>
+                <li class="nav-item" th:classappend="${activeTab == 'Войти' ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{/login}">Войти</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>

@@ -2,52 +2,51 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ru">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <title>Авторизация</title>
 </head>
 
 <body>
 
-<nav class="navbar">
-    <div class="container-fluid">
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Объявления</a></li>
-            <li><a th:href="@{/addnew}">Добавить объявление</a></li>
-            <li><a th:href="@{/login}">Войти</a></li>
-        </ul>
+
+<div class="container-fluid text-left">
+    <div th:replace="~{navigation :: navigation('Войти')}"></div>
+    <div class="row content">
+        <div class="col-sm-4 text-left">
+            <form th:action="@{/login}" method="post">
+                <fieldset>
+                    <h2>Введите данные</h2>
+                    <div th:if="${param.error}">
+                        <div class="alert alert-danger">
+                            Вы ввели неправильные данные
+                        </div>
+                    </div>
+                    <div th:if="${param.logout}">
+                        <div class="alert alert-danger">
+                            Вы вышли из системы
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <input id="username" type="text" class="form-control" name="username"
+                               placeholder="логин" required="required"/>
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <input id="password" type="password" class="form-control" name="password"
+                               placeholder="пароль" required="required"/>
+                    </div>
+                    <br>
+                    <div>
+                        <button type="submit" class="btn btn-success">Войти</button>
+                    </div>
+
+                </fieldset>
+            </form>
+            <hr/>
+        </div>
     </div>
-</nav>
-
-<div class="container">
-    <form th:action="@{/login}" method="post">
-        <fieldset>
-            <h2>Введите данные</h2>
-            <div th:if="${param.error}">
-                <div class="alert alert-danger">
-                    Вы ввели неправильные данные
-                </div>
-            </div>
-            <div th:if="${param.logout}">
-                <div class="alert alert-danger">
-                    Вы вышли из системы
-                </div>
-            </div>
-            <div class="input-group">
-                <input id="username" type="text" class="form-control" name="username"
-                       placeholder="логин" required="required"/>
-            </div>
-            <br>
-            <div class="input-group">
-                <input id="password" type="password" class="form-control" name="password"
-                       placeholder="пароль" required="required"/>
-            </div>
-            <br>
-            <div>
-                <button type="submit" class="btn btn-success">Войти</button>
-            </div>
-
-        </fieldset>
-    </form>
-    <hr/>
 </div>
 
 </body>

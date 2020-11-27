@@ -2,22 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ru">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <title>Добавить объявление</title>
 </head>
 
 <body>
 
-<nav class="navbar">
-    <div class="container-fluid">
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Объявления</a></li>
-            <li><a th:href="@{/addnew}">Добавить объявление</a></li>
-            <li><a th:href="@{/login}">Войти</a></li>
-        </ul>
-    </div>
-</nav>
-
-<div class="container-fluid text-center">
+<div class="container-fluid text-left">
+    <div th:replace="~{navigation :: navigation('Добавить объявление')}"></div>
     <div class="row content">
         <form th:action="@{/addnew/submit}" th:object="${adform}" method="post">
             <h1>Создание объявления</h1>
