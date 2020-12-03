@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ru">
 
 <head>
     <meta charset="utf-8"/>
@@ -22,6 +22,11 @@
                 </li>
                 <li class="nav-item" th:classappend="${activeTab == 'Войти' ? 'active' : ''}">
                     <a class="nav-link" th:href="@{/login}">Войти</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" method="POST">
+                        <input type="submit" class="btn btn-danger" value="Выйти" />
+                    </form>
                 </li>
             </ul>
         </div>
