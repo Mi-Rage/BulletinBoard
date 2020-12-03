@@ -5,11 +5,9 @@ import development.bulletinboard.repository.AdFormRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Spliterator;
-import java.util.Spliterators;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 @Service
@@ -38,5 +36,9 @@ public class AdFormService {
                         false)
                 .sorted(Comparator.reverseOrder())
                 .collect(Collectors.toList());
+    }
+
+    public List<AdForm> geiAdFormBySearch(String text) {
+        return repository.findAllByTitleContainsOrContentContainsOrderByIdDesc(text, text);
     }
 }

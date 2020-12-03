@@ -25,5 +25,9 @@
                 </li>
             </ul>
         </div>
+        <form class="form-inline" th:action="@{/search}" method="get">
+            <input class="form-control mr-sm-2" name="searchingText" type="search" placeholder="Поиск" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
+        </form>
     </nav>
 </div>

@@ -8,6 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Controller
 public class MainController {
 
@@ -18,13 +21,13 @@ public class MainController {
         this.service = service;
     }
 
-    @RequestMapping("/")
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String mainPage(Model model) {
         model.addAttribute("messages", service.getLastAdForms());
         return "main";
     }
 
-    @RequestMapping(value = "/addnew")
+    @RequestMapping(value = "/addnew", method = RequestMethod.GET)
     public String addNewForm(Model model) {
         model.addAttribute("adform", new AdForm());
         return "addnew";
@@ -36,7 +39,7 @@ public class MainController {
         return "redirect:../";
     }
 
-    @RequestMapping(value = "/details/{id}")
+    @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
     public String detailsPage(Model model, @PathVariable("id") int id) {
         AdForm adForm = service.getAdFormById(id);
         model.addAttribute("selectedAd", adForm);
@@ -44,8 +47,17 @@ public class MainController {
         return "details";
     }
 
-    @RequestMapping(value = "/login")
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage() {
         return "login";
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String searchOnSite(Model model, @RequestParam("searchingText") String text) {
+        model.addAttribute("searchingText", text);
+        List<AdForm> adFormList = service.geiAdFormBySearch(text);
+        System.out.println(Arrays.toString(adFormList.toArray()));
+        model.addAttribute("adFormList", adFormList);
+        return "searching";
     }
 }
