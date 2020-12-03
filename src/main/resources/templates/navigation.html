@@ -20,7 +20,7 @@
                 <li class="nav-item" th:classappend="${activeTab == 'Добавить объявление' ? 'active' : ''}">
                     <a class="nav-link" th:href="@{/addnew}">Добавить объявление</a>
                 </li>
-                <li class="nav-item" th:classappend="${activeTab == 'Войти' ? 'active' : ''}">
+                <li class="nav-item" sec:authorize="isAnonymous()" th:classappend="${activeTab == 'Войти' ? 'active' : ''}">
                     <a class="nav-link" th:href="@{/login}">Войти</a>
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
