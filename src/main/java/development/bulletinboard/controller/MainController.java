@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -56,7 +55,6 @@ public class MainController {
     public String searchOnSite(Model model, @RequestParam("searchingText") String text) {
         model.addAttribute("searchingText", text);
         List<AdForm> adFormList = service.geiAdFormBySearch(text);
-        System.out.println(Arrays.toString(adFormList.toArray()));
         model.addAttribute("adFormList", adFormList);
         return "searching";
     }
