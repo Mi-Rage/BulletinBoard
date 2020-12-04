@@ -15,17 +15,12 @@
 <div class="container-fluid text-left">
     <div class="row content">
         <div class="col-sm-4 text-left">
-            <form th:action="@{/login}" method="post">
+            <form th:action="@{/authenticateTheUser}" method="post">
                 <fieldset>
                     <h2>Введите данные</h2>
                     <div th:if="${param.error}">
                         <div class="alert alert-danger">
                             Вы ввели неправильные данные
-                        </div>
-                    </div>
-                    <div th:if="${param.logout}">
-                        <div class="alert alert-danger">
-                            Вы вышли из системы
                         </div>
                     </div>
                     <div class="input-group">
