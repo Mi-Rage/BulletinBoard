@@ -2,31 +2,28 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ru">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <title>Главная страница</title>
 </head>
 
 <body>
 
-<nav class="navbar">
-    <div class="container-fluid">
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Статьи</a></li>
-            <li><a th:href="@{/addnew}">Добавить объявление</a></li>
-            <li><a th:href="@{/login}">Войти</a></li>
-        </ul>
-    </div>
-</nav>
+<div th:replace="~{navigation :: navigation('Объявления')}"></div>
 
-<div class="container-fluid text-center">
-    <div>
-        <h1>Добро пожаловать на сайт</h1>
-        <p>Сайт с объявлениями пользователей</p>
-    </div>
-    <hr/>
-    <span th:if="${messages.size() == 0}">Объявлений пока нет.</span>
-    <div th:each="message : ${messages}">
-        <h3><a th:href="@{'/details/' + ${message.id}}"><p th:text="${message.title}"></p></a> </h3>
+<div class="container-fluid text-left">
+    <div class="col-sm-8 text-left">
+        <div>
+            <h1>Добро пожаловать на сайт</h1>
+            <p>Сайт с объявлениями пользователей</p>
+        </div>
         <hr/>
+        <span th:if="${messages.size() == 0}">Объявлений пока нет.</span>
+        <div th:each="message : ${messages}">
+            <h3><a th:href="@{'/details/' + ${message.id}}"><p th:text="${message.title}"></p></a></h3>
+            <hr/>
+        </div>
     </div>
 </div>
 

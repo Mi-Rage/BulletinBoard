@@ -5,14 +5,13 @@ import development.bulletinboard.repository.AdFormRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Spliterator;
-import java.util.Spliterators;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-
+/**
+ * Сервис объявлений
+ */
 @Service
 public class AdFormService {
 
@@ -23,20 +22,28 @@ public class AdFormService {
         this.repository = repository;
     }
 
+    /**
+     * Сохранение объявления в БД
+     * @param adForm - объект объявления
+     */
     public void saveForm(AdForm adForm) {
-        int counter = lastIdRepository() + 1;
-        adForm.setId(counter);
         repository.save(adForm);
         System.out.println(adForm.toString());
     }
 
-    public int lastIdRepository(){
-        return (int) repository.count();
+    /**
+     * Получим объявление по его ID
+     * @param id - ID объявления
+     * @return - объект обявления с этим ID
+     */
+    public AdForm getAdFormById(int id) {
+        return repository.getOne(id);
     }
 
-    public AdForm getAdFormById(int id) {
-        return repository.findById(id).get();
-    }
+    /**
+     * Список объявлений, сотрированный по дате создания (новые - выше)
+     * @return - список объектов AdForm
+     */
     public List<AdForm> getLastAdForms() {
         return StreamSupport
                 .stream(
@@ -44,5 +51,14 @@ public class AdFormService {
                         false)
                 .sorted(Comparator.reverseOrder())
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Поиск объявлений по заданному тексту
+     * @param text - текст из веб-формы поиска
+     * @return список объявлений с вхождением текста
+     */
+    public List<AdForm> geiAdFormBySearch(String text) {
+        return repository.findAllByTitleContainsOrContentContainsOrderByIdDesc(text, text);
     }
 }

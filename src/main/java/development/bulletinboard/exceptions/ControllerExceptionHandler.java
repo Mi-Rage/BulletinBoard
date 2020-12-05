@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.NoSuchElementException;
 
+/**
+ * Если полезут куда не надо - выведем текст ошибки
+ */
 @RestControllerAdvice
 public class ControllerExceptionHandler {
     private static final String NO_SUCH_ELEMENT = "Для этого индекса не найдено объявление!";

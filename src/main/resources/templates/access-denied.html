@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <title>Просмотр объявления</title>
+    <title>Ошибка!</title>
 </head>
 
 <body>
@@ -15,16 +15,10 @@
 <div class="container-fluid text-left">
     <div class="col-sm-8 text-left">
         <div>
-            <h1>Просмотр объявления</h1>
+            <h1>Доступ запрещен!</h1>
+            <p>Недостаточно прав пользователя</p>
         </div>
         <hr/>
-        <div>
-            <h3 th:text="${selectedAd.title}"></h3>
-            <p th:text="${selectedAd.content}"></p>
-            <p th:text="'id: ' + ${selectedAd.id}"></p>
-            <p th:text="'дата создания: ' + ${dateSelectedAd}"></p>
-            <hr/>
-        </div>
     </div>
 </div>
 
