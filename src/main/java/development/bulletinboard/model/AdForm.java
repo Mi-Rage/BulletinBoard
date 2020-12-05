@@ -3,6 +3,9 @@ package development.bulletinboard.model;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * Класс объявления.
+ */
 @Entity
 @Table(name = "adform")
 public class AdForm implements Serializable, Comparable<AdForm> {

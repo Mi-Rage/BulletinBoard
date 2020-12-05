@@ -5,6 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Класс ролей пользователя.
+ * В БД значения 'username' из этой таблицы привязаны к значениям 'username'
+ * таблицы пользователей.
+ */
 @Entity
 @Table(name = "authorities")
 public class Role {

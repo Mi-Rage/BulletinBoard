@@ -20,6 +20,9 @@
                 <li class="nav-item" th:classappend="${activeTab == 'Добавить объявление' ? 'active' : ''}">
                     <a class="nav-link" th:href="@{/addnew}">Добавить объявление</a>
                 </li>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')" th:classappend="${activeTab == 'Админка' ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{/admin}">Админка</a>
+                </li>
                 <li class="nav-item" sec:authorize="isAnonymous()" th:classappend="${activeTab == 'Войти' ? 'active' : ''}">
                     <a class="nav-link" th:href="@{/login}">Войти</a>
                 </li>

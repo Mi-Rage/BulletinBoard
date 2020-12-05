@@ -2,6 +2,10 @@ package development.bulletinboard.model;
 
 import javax.persistence.*;
 
+/**
+ * Класс пользователей.
+ * В БД значения 'username' этой таблицы связаны с значениями 'username' таблицы ролей
+ */
 @Entity
 @Table(name = "users")
 public class User {
