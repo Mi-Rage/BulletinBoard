@@ -43,13 +43,11 @@ public class RegistrationController {
     public String registerNewUser(@ModelAttribute User user, Model model) {
 
         if (!user.getPassword().equals(user.getPasswordConfirm())){
-            model.addAttribute("passwordError", "Пароли не совпадают");
-            return "registration";
+            return "error-wrongpassconf";
         }
 
         if (!userService.saveUser(user)){
-            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
-            return "registration";
+            return "error-userexist";
         }
 
         return "redirect:/";

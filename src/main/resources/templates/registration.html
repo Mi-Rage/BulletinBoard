@@ -23,11 +23,6 @@
             <form th:action="@{/register}" th:object="${userForm}" method="post">
                 <fieldset>
                     <h2>Введите данные</h2>
-                    <div th:if="${passwordError}">
-                        <div class="alert alert-danger" th:text="${passwordError}">
-                            Вы ввели неправильные данные
-                        </div>
-                    </div>
                     <div class="input-group">
                         <input id="username" type="text" class="form-control" th:field="*{userName}"
                                placeholder="логин" required="required"/>
