@@ -5,9 +5,12 @@ import development.bulletinboard.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.validation.Valid;
 
 /**
  * Контроллер регистрации новых пользователей
@@ -40,7 +43,11 @@ public class RegistrationController {
      * @return если ошибка - пробуем снова. Если ок - редирект на главную
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerNewUser(@ModelAttribute User user, Model model) {
+    public String registerNewUser(@ModelAttribute("userForm") @Valid User user, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "registration";
+        }
 
         if (!user.getPassword().equals(user.getPasswordConfirm())){
             return "error-wrongpassconf";

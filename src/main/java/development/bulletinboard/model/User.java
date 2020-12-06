@@ -1,6 +1,8 @@
 package development.bulletinboard.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  * Класс пользователей.
@@ -12,9 +14,13 @@ public class User {
 
     @Id
     @Column(name = "username")
+    @NotBlank
+    @Size(min = 3, max = 50)
     private String userName;
 
+    @NotBlank
     @Column(name = "password")
+    @Size(min = 8, max = 20)
     private String password;
 
     @Transient
