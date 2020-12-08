@@ -20,17 +20,17 @@
                     <h2>Введите данные</h2>
                     <div th:if="${param.error}">
                         <div class="alert alert-danger">
-                            Вы ввели неправильные данные
+                            Неверные Логин или Пароль
                         </div>
                     </div>
                     <div class="input-group">
                         <input id="username" type="text" class="form-control" name="username"
-                               placeholder="логин" required="required"/>
+                               placeholder="Логин" required="required"/>
                     </div>
                     <br>
                     <div class="input-group">
                         <input id="password" type="password" class="form-control" name="password"
-                               placeholder="пароль" required="required"/>
+                               placeholder="Пароль" required="required"/>
                     </div>
                     <br>
                     <div>

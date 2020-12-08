@@ -19,10 +19,12 @@
         </div>
         <hr/>
         <div>
-            <h3 th:text="${selectedAd.title}"></h3>
-            <p th:text="${selectedAd.content}"></p>
-            <p th:text="'id: ' + ${selectedAd.id}"></p>
+            <h3 th:text="${title}"></h3>
+            <p th:text="${content}"></p>
+            <p th:text="'id: ' + ${id}"></p>
             <p th:text="'дата создания: ' + ${dateSelectedAd}"></p>
+            <p th:text="'владелец: ' + ${userName}"></p>
+
             <hr/>
         </div>
     </div>

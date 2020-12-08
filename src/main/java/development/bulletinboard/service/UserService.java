@@ -63,4 +63,17 @@ public class UserService {
     public List<Role> getAllRoles() {
         return roleRepository.findAll();
     }
+
+    /**
+     * Поиск объекта пользователя по его ID (имени пользователя)
+     * @param userName String имя пользователя
+     * @return объект пользователя с этим именем, если есть
+     */
+    public User getUserById(String userName) {
+        if (userRepository.findById(userName).isPresent()) {
+            return userRepository.findById(userName).get();
+        } else {
+            throw new RuntimeException("Нет такого пользователя с именем " + userName);
+        }
+    }
 }
