@@ -23,24 +23,22 @@
             <form th:action="@{/register}" th:object="${userForm}" method="post">
                 <fieldset>
                     <h2>Введите данные</h2>
-                    <div th:if="${passwordError}">
-                        <div class="alert alert-danger" th:text="${passwordError}">
-                            Вы ввели неправильные данные
-                        </div>
-                    </div>
+                    <div class="alert alert-danger" th:errors="*{userName}"></div>
                     <div class="input-group">
                         <input id="username" type="text" class="form-control" th:field="*{userName}"
-                               placeholder="логин" required="required"/>
+                               placeholder="Логин (от 3 до 50 символов)" required="required"/>
                     </div>
                     <br>
+                    <div class="alert alert-danger" th:errors="*{password}"></div>
                     <div class="input-group">
                         <input id="password" type="password" class="form-control" th:field="*{password}"
-                               placeholder="пароль" required="required"/>
+                               placeholder="Пароль (от 8 до 20 символов)" required="required"/>
                     </div>
                     <br>
                     <div class="input-group">
-                        <input id="passwordConfirm" type="password" class="form-control" th:field="*{passwordConfirm}"
-                               placeholder="подтвертите пароль" required="required"/>
+                        <input id="passwordConfirm" type="password" class="form-control"
+                               th:field="*{passwordConfirm}"
+                               placeholder="Подтвертите пароль" required="required"/>
                     </div>
                     <br>
                     <div>

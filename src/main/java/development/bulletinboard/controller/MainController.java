@@ -1,13 +1,16 @@
 package development.bulletinboard.controller;
 
 import development.bulletinboard.model.AdForm;
+import development.bulletinboard.model.User;
 import development.bulletinboard.service.AdFormService;
+import development.bulletinboard.service.UserService;
 import development.bulletinboard.utility.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 /**
@@ -16,11 +19,13 @@ import java.util.List;
 @Controller
 public class MainController {
 
-    private final AdFormService service;
+    private final AdFormService adFormService;
+    private final UserService userService;
 
     @Autowired
-    public MainController(AdFormService service) {
-        this.service = service;
+    public MainController(AdFormService service, UserService userService) {
+        this.adFormService = service;
+        this.userService = userService;
     }
 
     /**
@@ -30,7 +35,7 @@ public class MainController {
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String mainPage(Model model) {
-        model.addAttribute("messages", service.getLastAdForms());
+        model.addAttribute("messages", adFormService.getLastAdForms());
         return "main";
     }
 
@@ -40,8 +45,9 @@ public class MainController {
      * @return страница создания объявления
      */
     @RequestMapping(value = "/addnew", method = RequestMethod.GET)
-    public String addNewForm(Model model) {
+    public String addNewForm(Model model, Principal principal) {
         model.addAttribute("adform", new AdForm());
+        model.addAttribute("userName", principal.getName());
         return "addnew";
     }
 
@@ -51,22 +57,28 @@ public class MainController {
      * @return редирект на главную
      */
     @RequestMapping(value = "/addnew/submit", method = RequestMethod.POST)
-    public String submitArticle(@ModelAttribute AdForm adForm) {
-        service.saveForm(adForm);
+    public String submitArticle(@ModelAttribute AdForm adForm, Principal principal) {
+        String userName = principal.getName();
+        User user = userService.getUserById(userName);
+        adForm.setUser(user);
+        adFormService.saveForm(adForm);
         return "redirect:../";
     }
 
     /**
      * Запрос просмотра выбранного объявления
-     * @param model - объект объявления из базы, дата создания в нормальном виде
+     * @param model - объект объявления из базы, дата создания и имя создавшего в нормальном виде
      * @param id - идентификатор выбранного объявления
      * @return страница детализации объявдения
      */
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
     public String detailsPage(Model model, @PathVariable("id") int id) {
-        AdForm adForm = service.getAdFormById(id);
-        model.addAttribute("selectedAd", adForm);
+        AdForm adForm = adFormService.getAdFormById(id);
+        model.addAttribute("title", adForm.getTitle());
+        model.addAttribute("content", adForm.getContent());
+        model.addAttribute("id", adForm.getId());
         model.addAttribute("dateSelectedAd", Util.getTimeFromStamp(adForm.getCreationTimestamp()));
+        model.addAttribute("userName", adForm.getUser().getUserName());
         return "details";
     }
 
@@ -88,7 +100,7 @@ public class MainController {
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String searchOnSite(Model model, @RequestParam("searchingText") String text) {
         model.addAttribute("searchingText", text);
-        List<AdForm> adFormList = service.geiAdFormBySearch(text);
+        List<AdForm> adFormList = adFormService.geiAdFormBySearch(text);
         model.addAttribute("adFormList", adFormList);
         return "searching";
     }

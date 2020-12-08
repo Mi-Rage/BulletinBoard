@@ -22,6 +22,10 @@ public class AdForm implements Serializable, Comparable<AdForm> {
     @Column(name = "timestamp")
     private long creationTimestamp;
 
+    @ManyToOne()
+    @JoinColumn(name = "username")
+    private User user;
+
     public AdForm() {
         this.creationTimestamp = System.currentTimeMillis();
     }
@@ -65,6 +69,14 @@ public class AdForm implements Serializable, Comparable<AdForm> {
         this.creationTimestamp = creationTimestamp;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public int compareTo(AdForm that) {
         return Long.compare(this.creationTimestamp, that.creationTimestamp);
@@ -72,6 +84,7 @@ public class AdForm implements Serializable, Comparable<AdForm> {
 
     @Override
     public String toString(){
-        return String.format("AdForm: id:%d, title:%s, content:%s, time:%d", id, title, content, creationTimestamp);
+        return String.format("Added : id:%d, title:%s, content:%s, time:%d, user:%s",
+                id, title, content, creationTimestamp, user.getUserName());
     }
 }

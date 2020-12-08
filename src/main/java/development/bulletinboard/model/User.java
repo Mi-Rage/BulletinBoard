@@ -1,6 +1,9 @@
 package development.bulletinboard.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * Класс пользователей.
@@ -12,9 +15,13 @@ public class User {
 
     @Id
     @Column(name = "username")
+    @NotBlank
+    @Size(min = 3, max = 50)
     private String userName;
 
+    @NotBlank
     @Column(name = "password")
+    @Size(min = 8, max = 20)
     private String password;
 
     @Transient
@@ -22,6 +29,9 @@ public class User {
 
     @Column(name = "enabled")
     private boolean isEnabled = true;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<AdForm> adFormList;
 
     public User() {
     }
@@ -56,5 +66,13 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         isEnabled = enabled;
+    }
+
+    public List<AdForm> getAdFormList() {
+        return adFormList;
+    }
+
+    public void setAdFormList(List<AdForm> adFormList) {
+        this.adFormList = adFormList;
     }
 }

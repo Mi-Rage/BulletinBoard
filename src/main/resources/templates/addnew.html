@@ -16,15 +16,16 @@
     <div class="row content">
         <div class="col-sm-8 text-left">
             <form th:action="@{/addnew/submit}" th:object="${adform}" method="post">
-                <h1>Создание объявления</h1>
+                <h1>Создание объявления пользователем '<span th:text="${userName}"></span>'</h1>
                 <div class="form-group">
                     <label for="usr">Название</label>
-                    <input type="text" class="form-control" id="usr" th:field="*{title}" required="required"/>
+                    <input type="text" class="form-control" id="usr" th:field="*{title}" placeholder="Заголовок"
+                           required="required"/>
                 </div>
                 <div class="form-group">
                     <label for="comment">Текст</label>
                     <textarea class="form-control" rows="20" id="comment" th:field="*{content}"
-                              required="required"></textarea>
+                              placeholder="Текст объявления" required="required"></textarea>
                 </div>
                 <button type="submit" class="btn btn-success">Сохранить</button>
             </form>
