@@ -34,7 +34,12 @@ public class MainController {
      * @return главная страница
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String mainPage(Model model) {
+    public String mainPage(Model model, Principal principal) {
+        String userName = "гость";
+        if (principal != null) {
+            userName = principal.getName();
+        }
+        model.addAttribute("userName", userName);
         model.addAttribute("messages", adFormService.getLastAdForms());
         return "main";
     }
@@ -116,6 +121,9 @@ public class MainController {
     public String detailsPage(Model model, @PathVariable("id") String userName) {
         List<AdForm> adFormList = adFormService.getAllAdsFromUser(userName);
         model.addAttribute("userName", userName);
+        model.addAttribute("regDate", Util.getTimeFromStamp(userService
+                .getUserById(userName)
+                .getRegisterTimestamp()));
         model.addAttribute("adFormList", adFormList);
         return "user-details";
     }

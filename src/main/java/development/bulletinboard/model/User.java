@@ -30,10 +30,14 @@ public class User {
     @Column(name = "enabled")
     private boolean isEnabled = true;
 
+    @Column(name = "timestamp")
+    private long registerTimestamp;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AdForm> adFormList;
 
     public User() {
+        this.registerTimestamp = System.currentTimeMillis();
     }
 
     public String getUserName() {
@@ -74,5 +78,13 @@ public class User {
 
     public void setAdFormList(List<AdForm> adFormList) {
         this.adFormList = adFormList;
+    }
+
+    public long getRegisterTimestamp() {
+        return registerTimestamp;
+    }
+
+    public void setRegisterTimestamp(long registerTimestamp) {
+        this.registerTimestamp = registerTimestamp;
     }
 }

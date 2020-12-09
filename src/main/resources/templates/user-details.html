@@ -16,7 +16,7 @@
     <div class="col-sm-8 text-left">
         <div>
             <h1>Все объявы пользователя '<span th:text="${userName}"></span>'.</h1>
-            <p>Здесь можно выводить инфу о пользователе из БД.</p>
+            <p th:text="${userName} + ' с нами с ' + ${regDate}"></p>
         </div>
         <hr/>
         <span th:if="${adFormList.size() == 0}">Объявлений пока нет.</span>
