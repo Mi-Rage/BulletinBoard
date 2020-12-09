@@ -92,7 +92,7 @@ public class MainController {
     }
 
     /**
-     * Запрос поиска объявлений
+     * Запрос поиска объявлений по ключевому слову
      * @param model - текст из веб-формы
      * @param text - текст из веб-формы
      * @return страница с результатами поиска
@@ -100,8 +100,23 @@ public class MainController {
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String searchOnSite(Model model, @RequestParam("searchingText") String text) {
         model.addAttribute("searchingText", text);
-        List<AdForm> adFormList = adFormService.geiAdFormBySearch(text);
+        List<AdForm> adFormList = adFormService.getAdFormBySearch(text);
         model.addAttribute("adFormList", adFormList);
         return "searching";
+    }
+
+    /**
+     * Запрос страницы с данными пользователя.
+     * В странице отображаются все объявления этого пользователя.
+     * @param model передаем имя пользователя и полученный список его объявлений
+     * @param userName имя пользователя, по которому будем искать объявления
+     * @return страница с данными о пользователе
+     */
+    @RequestMapping(value = "/user-details/{id}", method = RequestMethod.GET)
+    public String detailsPage(Model model, @PathVariable("id") String userName) {
+        List<AdForm> adFormList = adFormService.getAllAdsFromUser(userName);
+        model.addAttribute("userName", userName);
+        model.addAttribute("adFormList", adFormList);
+        return "user-details";
     }
 }

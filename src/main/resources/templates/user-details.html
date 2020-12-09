@@ -15,15 +15,14 @@
 <div class="container-fluid text-left">
     <div class="col-sm-8 text-left">
         <div>
-            <h1>Просмотр объявления</h1>
+            <h1>Все объявы пользователя '<span th:text="${userName}"></span>'.</h1>
+            <p>Здесь можно выводить инфу о пользователе из БД.</p>
         </div>
         <hr/>
-        <div>
-            <h3 th:text="${title}"></h3>
-            <p th:text="${content}"></p>
-            <p th:text="'id: ' + ${id}"></p>
-            <p th:text="'дата создания: ' + ${dateSelectedAd}"></p>
-            <p>владелец: <a th:href="@{'/user-details/' + ${userName}}"><span th:text="${userName}"></span></a></p>
+        <span th:if="${adFormList.size() == 0}">Объявлений пока нет.</span>
+        <div th:each="message : ${adFormList}">
+            <h3><a th:href="@{'/details/' + ${message.id}}"><p th:text="${message.title}"></p></a></h3>
+            <p th:text="'id: ' + ${message.id}"></p>
             <hr/>
         </div>
     </div>

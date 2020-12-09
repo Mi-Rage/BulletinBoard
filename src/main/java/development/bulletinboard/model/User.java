@@ -30,7 +30,7 @@ public class User {
     @Column(name = "enabled")
     private boolean isEnabled = true;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AdForm> adFormList;
 
     public User() {

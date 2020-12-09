@@ -1,7 +1,9 @@
 package development.bulletinboard.service;
 
 import development.bulletinboard.model.AdForm;
+import development.bulletinboard.model.User;
 import development.bulletinboard.repository.AdFormRepository;
+import development.bulletinboard.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +18,12 @@ import java.util.stream.StreamSupport;
 public class AdFormService {
 
     private final AdFormRepository repository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public AdFormService(AdFormRepository repository) {
+    public AdFormService(AdFormRepository repository, UserRepository userRepository) {
         this.repository = repository;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -58,7 +62,21 @@ public class AdFormService {
      * @param text - текст из веб-формы поиска
      * @return список объявлений с вхождением текста
      */
-    public List<AdForm> geiAdFormBySearch(String text) {
+    public List<AdForm> getAdFormBySearch(String text) {
         return repository.findAllByTitleContainsOrContentContainsOrderByIdDesc(text, text);
+    }
+
+    /**
+     * Поиск объявлений по запрошенному пользователю
+     * @param userName - String имя пользователя, чьи объявы ищем
+     * @return List список объявлений этого пользователя
+     */
+    public List<AdForm> getAllAdsFromUser(String userName) {
+        if (userRepository.findById(userName).isPresent()) {
+            User user = userRepository.findById(userName).get();
+            return repository.findAllByUserOrderByIdDesc(user);
+        } else {
+            throw new RuntimeException("Нет такого пользователя " + userName);
+        }
     }
 }
