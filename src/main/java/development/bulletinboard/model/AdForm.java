@@ -27,7 +27,7 @@ public class AdForm implements Serializable, Comparable<AdForm> {
     private User user;
 
     @Column(name = "category_id")
-    private String categoryId;
+    private Long categoryId;
 
     public AdForm() {
         this.creationTimestamp = System.currentTimeMillis();
@@ -80,11 +80,11 @@ public class AdForm implements Serializable, Comparable<AdForm> {
         this.user = user;
     }
 
-    public String getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 

@@ -3,5 +3,8 @@ package development.bulletinboard.repository;
 import development.bulletinboard.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CategoryRepository extends JpaRepository<Category, Integer> {
+/**
+ * Репоизторий категорий объявления
+ */
+public interface CategoryRepository extends JpaRepository<Category, Long> {
 }

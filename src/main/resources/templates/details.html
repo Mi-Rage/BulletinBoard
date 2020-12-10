@@ -22,6 +22,7 @@
             <h3 th:text="${title}"></h3>
             <p th:text="${content}"></p>
             <p th:text="'id: ' + ${id}"></p>
+            <p>Категория: <span th:text="${category}"></span></p>
             <p th:text="'дата создания: ' + ${dateSelectedAd}"></p>
             <p>владелец: <a th:href="@{'/user-details/' + ${userName}}"><span th:text="${userName}"></span></a></p>
             <hr/>

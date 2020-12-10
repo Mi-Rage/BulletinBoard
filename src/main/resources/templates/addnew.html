@@ -17,14 +17,14 @@
         <div class="col-sm-8 text-left">
             <form th:action="@{/addnew/submit}" th:object="${adform}" method="post">
                 <h1>Создание объявления пользователем '<span th:text="${userName}"></span>'</h1>
-<!--                Блок ввода заголовка объявления-->
+                <!--                Блок ввода заголовка объявления-->
                 <div class="form-group">
                     <label for="usr">Название</label>
                     <input type="text" class="form-control" id="usr" th:field="*{title}" placeholder="Заголовок"
                            required="required"/>
                 </div>
-<!--                Конец блока ввода заголовка-->
-<!--                Начало блока выбора категории-->
+                <!--                Конец блока ввода заголовка-->
+                <!--                Начало блока выбора категории-->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupSelect01">Выберите категорию</label>
@@ -32,17 +32,18 @@
                     <select th:field="*{categoryId}" class="custom-select" id="inputGroupSelect01">
                         <option th:each="eachCategory : ${categories}"
                                 th:value="${eachCategory.id}"
-                                th:text="${eachCategory.categoryName}">Категории</option>
+                                th:text="${eachCategory.categoryName}">Категории
+                        </option>
                     </select>
                 </div>
-<!--                Конец блока выбора категории-->
-<!--                Начало блока ввода текста объявы-->
+                <!--                Конец блока выбора категории-->
+                <!--                Начало блока ввода текста объявы-->
                 <div class="form-group">
                     <label for="comment">Текст</label>
                     <textarea class="form-control" rows="20" id="comment" th:field="*{content}"
                               placeholder="Текст объявления" required="required"></textarea>
                 </div>
-<!--                Конец блока ввода текста-->
+                <!--                Конец блока ввода текста-->
                 <button type="submit" class="btn btn-success">Сохранить</button>
             </form>
             <hr/>
