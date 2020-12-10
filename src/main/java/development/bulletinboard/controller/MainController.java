@@ -1,8 +1,10 @@
 package development.bulletinboard.controller;
 
 import development.bulletinboard.model.AdForm;
+import development.bulletinboard.model.Category;
 import development.bulletinboard.model.User;
 import development.bulletinboard.service.AdFormService;
+import development.bulletinboard.service.CategoryService;
 import development.bulletinboard.service.UserService;
 import development.bulletinboard.utility.Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +23,13 @@ public class MainController {
 
     private final AdFormService adFormService;
     private final UserService userService;
+    private final CategoryService categoryService;
 
     @Autowired
-    public MainController(AdFormService service, UserService userService) {
+    public MainController(AdFormService service, UserService userService, CategoryService categoryService) {
         this.adFormService = service;
         this.userService = userService;
+        this.categoryService = categoryService;
     }
 
     /**
@@ -51,6 +55,8 @@ public class MainController {
      */
     @RequestMapping(value = "/addnew", method = RequestMethod.GET)
     public String addNewForm(Model model, Principal principal) {
+        List<Category> categories = categoryService.getAllCategories();
+        model.addAttribute("categories", categories);
         model.addAttribute("adform", new AdForm());
         model.addAttribute("userName", principal.getName());
         return "addnew";
