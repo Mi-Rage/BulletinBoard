@@ -85,13 +85,12 @@ public class MainController {
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
     public String detailsPage(Model model, @PathVariable("id") int id) {
         AdForm adForm = adFormService.getAdFormById(id);
-        String categoryName = categoryService.getCategoryNameById(adForm.getCategoryId());
 
         model.addAttribute("title", adForm.getTitle());
-        model.addAttribute("category", categoryName);
+        model.addAttribute("category", adForm.getCategoryName());
         model.addAttribute("content", adForm.getContent());
         model.addAttribute("id", adForm.getId());
-        model.addAttribute("dateSelectedAd", Util.getTimeFromStamp(adForm.getCreationTimestamp()));
+        model.addAttribute("dateSelectedAd", adForm.getNormalDate());
         model.addAttribute("userName", adForm.getUser().getUserName());
 
         return "details";
