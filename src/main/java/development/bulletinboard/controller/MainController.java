@@ -127,7 +127,7 @@ public class MainController {
      * @return страница с данными о пользователе
      */
     @RequestMapping(value = "/user-details/{id}", method = RequestMethod.GET)
-    public String detailsPage(Model model, @PathVariable("id") String userName) {
+    public String userDetailsPage(Model model, @PathVariable("id") String userName) {
         List<AdForm> adFormList = adFormService.getAllAdsFromUser(userName);
         model.addAttribute("userName", userName);
         model.addAttribute("regDate", Util.getTimeFromStamp(userService
@@ -135,5 +135,19 @@ public class MainController {
                 .getRegisterTimestamp()));
         model.addAttribute("adFormList", adFormList);
         return "user-details";
+    }
+
+    /**
+     * Запрос всех объявлений из выбранной категории
+     * @param model модель для отображения
+     * @param categoryName String, имя выбранной категории
+     * @return страница со списком объяв этой категории
+     */
+    @RequestMapping(value = "/category-details/{id}", method = RequestMethod.GET)
+    public String categoryDetailsPage(Model model, @PathVariable("id") String categoryName) {
+        List<AdForm> adFormList = adFormService.getAllAdsFromCategory(categoryName);
+        model.addAttribute("categoryName", categoryName);
+        model.addAttribute("adFormList", adFormList);
+        return "category-details";
     }
 }

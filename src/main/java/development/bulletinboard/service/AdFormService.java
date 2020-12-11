@@ -94,6 +94,21 @@ public class AdFormService {
     }
 
     /**
+     * Поиск списка объявлений в заданной категории
+     * @param categoryName - String, имя категории к которой ищем объявы
+     * @return List список объявлений из этой категории
+     */
+    public List<AdForm> getAllAdsFromCategory(String categoryName) {
+        List<AdForm> adFormList;
+        Category category = categoryRepository.findByCategoryName((categoryName));
+        adFormList = repository.findAllByCategoryIdOrderByIdDesc(category.getId());
+        for(AdForm eachAd : adFormList) {
+            getAdvanced(eachAd);
+        }
+        return adFormList;
+    }
+
+    /**
      * Дополняет объект класса AdForm значениями полей
      * нормальной даты и наименованием категории
      * @param adForm обновляемый объект объявления
