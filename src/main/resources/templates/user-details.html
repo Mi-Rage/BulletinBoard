@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <title>Главная страница</title>
+    <title>Просмотр объявления</title>
 </head>
 
 <body>
@@ -15,13 +15,16 @@
 <div class="container-fluid text-left">
     <div class="col-sm-8 text-left">
         <div>
-            <h1>Добро пожаловать на сайт, <span th:text="${userName}"></span>!</h1>
-            <p>Сайт с объявлениями пользователей</p>
+            <h1>Все объявы пользователя '<span th:text="${userName}"></span>'.</h1>
+            <p th:text="${userName} + ' с нами с ' + ${regDate}"></p>
         </div>
         <hr/>
-        <span th:if="${messages.size() == 0}">Объявлений пока нет.</span>
-        <div th:each="message : ${messages}">
+        <span th:if="${adFormList.size() == 0}">Объявлений пока нет.</span>
+        <div th:each="message : ${adFormList}">
             <h3><a th:href="@{'/details/' + ${message.id}}"><p th:text="${message.title}"></p></a></h3>
+            <p><span th:text="'id: ' + ${message.id}"></span></p>
+            <p><span th:text="'Категория: ' + ${message.categoryName}"></span></p>
+            <p><span th:text="'Дата создания: ' + ${message.normalDate}"></span></p>
             <hr/>
         </div>
     </div>

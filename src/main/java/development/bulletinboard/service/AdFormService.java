@@ -1,7 +1,12 @@
 package development.bulletinboard.service;
 
 import development.bulletinboard.model.AdForm;
+import development.bulletinboard.model.Category;
+import development.bulletinboard.model.User;
 import development.bulletinboard.repository.AdFormRepository;
+import development.bulletinboard.repository.CategoryRepository;
+import development.bulletinboard.repository.UserRepository;
+import development.bulletinboard.utility.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +21,14 @@ import java.util.stream.StreamSupport;
 public class AdFormService {
 
     private final AdFormRepository repository;
+    private final UserRepository userRepository;
+    private final CategoryRepository categoryRepository;
 
     @Autowired
-    public AdFormService(AdFormRepository repository) {
+    public AdFormService(AdFormRepository repository, UserRepository userRepository, CategoryRepository categoryRepository) {
         this.repository = repository;
+        this.userRepository = userRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     /**
@@ -37,7 +46,9 @@ public class AdFormService {
      * @return - объект обявления с этим ID
      */
     public AdForm getAdFormById(int id) {
-        return repository.getOne(id);
+        AdForm adForm = repository.getOne(id);
+        getAdvanced(adForm);
+        return adForm;
     }
 
     /**
@@ -58,7 +69,44 @@ public class AdFormService {
      * @param text - текст из веб-формы поиска
      * @return список объявлений с вхождением текста
      */
-    public List<AdForm> geiAdFormBySearch(String text) {
+    public List<AdForm> getAdFormBySearch(String text) {
         return repository.findAllByTitleContainsOrContentContainsOrderByIdDesc(text, text);
+    }
+
+    /**
+     * Поиск объявлений по запрошенному пользователю
+     * @param userName - String имя пользователя, чьи объявы ищем
+     * @return List список объявлений этого пользователя
+     */
+    public List<AdForm> getAllAdsFromUser(String userName) {
+        List<AdForm> adFormList;
+        if (userRepository.findById(userName).isPresent()) {
+            User user = userRepository.findById(userName).get();
+            adFormList = repository.findAllByUserOrderByIdDesc(user);
+        } else {
+            throw new RuntimeException("Нет такого пользователя " + userName);
+        }
+
+        for(AdForm eachAd : adFormList) {
+            getAdvanced(eachAd);
+        }
+        return adFormList;
+    }
+
+    /**
+     * Дополняет объект класса AdForm значениями полей
+     * нормальной даты и наименованием категории
+     * @param adForm обновляемый объект объявления
+     */
+    private void getAdvanced(AdForm adForm) {
+        String normalDate = Util.getTimeFromStamp(adForm.getCreationTimestamp());
+        adForm.setNormalDate(normalDate);
+        Optional<Category> category = categoryRepository.findById(adForm.getCategoryId());
+        if (category.isPresent()) {
+            String categoryName = category.get().getCategoryName();
+            adForm.setCategoryName(categoryName);
+        } else {
+            throw new RuntimeException("Нет такой категории " + adForm.getCategoryId());
+        }
     }
 }

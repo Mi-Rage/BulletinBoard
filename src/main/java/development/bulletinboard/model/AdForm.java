@@ -26,6 +26,14 @@ public class AdForm implements Serializable, Comparable<AdForm> {
     @JoinColumn(name = "username")
     private User user;
 
+    @Column(name = "category_id")
+    private Long categoryId;
+
+    @Transient
+    private String normalDate;
+    @Transient
+    private String categoryName;
+
     public AdForm() {
         this.creationTimestamp = System.currentTimeMillis();
     }
@@ -75,6 +83,30 @@ public class AdForm implements Serializable, Comparable<AdForm> {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getNormalDate() {
+        return normalDate;
+    }
+
+    public void setNormalDate(String normalDate) {
+        this.normalDate = normalDate;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     @Override
