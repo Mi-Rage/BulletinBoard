@@ -23,6 +23,7 @@
         <span th:if="${adFormList.size() == 0}">Объявлений пока нет.</span>
         <div th:each="message : ${adFormList}">
             <h3><a th:href="@{'/details/' + ${message.id}}"><p th:text="${message.title}"></p></a></h3>
+            <p><span th:text="'Цена: ' + ${message.priceValue} + ' ' + ${message.price.priceId}"></span></p>
             <p><span th:text="'id: ' + ${message.id}"></span></p>
             <p>Категория: <a th:href="@{'/category-details/' + ${message.categoryName}}"><span th:text="${message.categoryName}"></span></a></p>
             <p><span th:text="'Дата создания: ' + ${message.normalDate}"></span></p>

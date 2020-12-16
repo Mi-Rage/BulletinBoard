@@ -25,6 +25,9 @@
         <span th:if="${adFormList.size() == 0}">Объявлений не найдено.</span>
         <div th:each="adForm : ${adFormList}">
             <h3><a th:href="@{'/details/' + ${adForm.id}}"><p th:text="${adForm.title}"></p></a></h3>
+            <p><span th:text="'Цена: ' + ${adForm.priceValue} + ' ' + ${adForm.price.priceId}"></span></p>
+            <p>Категория: <a th:href="@{'/category-details/' + ${adForm.categoryName}}"><span th:text="${adForm.categoryName}"></span></a></p>
+            <p><span th:text="'Дата создания: ' + ${adForm.normalDate}"></span></p>
             <hr/>
         </div>
     </div>

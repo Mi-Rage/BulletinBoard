@@ -21,6 +21,7 @@
         <div>
             <h3 th:text="${title}"></h3>
             <p th:text="${content}"></p>
+            <p th:text="'Цена: ' + ${priceValue} + ' ' + ${priceType}"></p>
             <p th:text="'id: ' + ${id}"></p>
             <p>Категория: <a th:href="@{'/category-details/' + ${category}}"><span th:text="${category}"></span></a></p>
             <p th:text="'Дата создания: ' + ${dateSelectedAd}"></p>
