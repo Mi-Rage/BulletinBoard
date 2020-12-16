@@ -43,6 +43,7 @@ public class MainController {
         if (principal != null) {
             userName = principal.getName();
         }
+        model.addAttribute("categoryList", categoryService.getAllCategories());
         model.addAttribute("userName", userName);
         model.addAttribute("messages", adFormService.getLastAdForms());
         return "main";

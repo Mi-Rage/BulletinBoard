@@ -20,10 +20,20 @@
         </div>
         <hr/>
         <span th:if="${messages.size() == 0}">Объявлений пока нет.</span>
+<!--        Список категорий-->
+        <div class="list-group" th:each="category : ${categoryList}">
+            <a th:href="'/category-details/' + ${category.categoryName}" class="list-group-item list-group-item-action">
+                <p th:text="${category.categoryName}"></p>
+            </a>
+        </div>
+<!--        Конец списка категорий-->
+        <br>
+<!--        Список всех объявлений-->
         <div th:each="message : ${messages}">
             <h3><a th:href="@{'/details/' + ${message.id}}"><p th:text="${message.title}"></p></a></h3>
             <hr/>
         </div>
+<!--        Конец списка всех объявлений-->
     </div>
 </div>
 
