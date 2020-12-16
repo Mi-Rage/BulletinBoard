@@ -1,3 +1,4 @@
+![Lines of code](https://img.shields.io/tokei/lines/github/Mi-Rage/BulletinBoard) ![GitHub language count](https://img.shields.io/github/languages/count/Mi-Rage/BulletinBoard) ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/Mi-Rage/BulletinBoard)
 # BulletinBoard
  Веб приложение "Доска объявлений". 
  
