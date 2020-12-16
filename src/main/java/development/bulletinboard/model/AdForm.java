@@ -29,6 +29,13 @@ public class AdForm implements Serializable, Comparable<AdForm> {
     @Column(name = "category_id")
     private Long categoryId;
 
+    @ManyToOne
+    @JoinColumn(name = "price_id")
+    private Price price;
+
+    @Column(name = "price_value")
+    private Float priceValue;
+
     @Transient
     private String normalDate;
     @Transient
@@ -107,6 +114,26 @@ public class AdForm implements Serializable, Comparable<AdForm> {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public Price getPrice() {
+        return price;
+    }
+
+    public void setPrice(Price price) {
+        this.price = price;
+    }
+
+    public Float getPriceValue() {
+        if (priceValue == null) {
+            return 0f;
+        } else {
+            return priceValue;
+        }
+    }
+
+    public void setPriceValue(Float priceValue) {
+        this.priceValue = priceValue;
     }
 
     @Override

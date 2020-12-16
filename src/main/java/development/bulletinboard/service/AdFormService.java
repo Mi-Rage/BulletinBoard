@@ -70,7 +70,11 @@ public class AdFormService {
      * @return список объявлений с вхождением текста
      */
     public List<AdForm> getAdFormBySearch(String text) {
-        return repository.findAllByTitleContainsOrContentContainsOrderByIdDesc(text, text);
+        List<AdForm> adFormList = repository.findAllByTitleContainsOrContentContainsOrderByIdDesc(text, text);
+        for(AdForm eachAd : adFormList) {
+            getAdvanced(eachAd);
+        }
+        return adFormList;
     }
 
     /**
@@ -94,6 +98,21 @@ public class AdFormService {
     }
 
     /**
+     * Поиск списка объявлений в заданной категории
+     * @param categoryName - String, имя категории к которой ищем объявы
+     * @return List список объявлений из этой категории
+     */
+    public List<AdForm> getAllAdsFromCategory(String categoryName) {
+        List<AdForm> adFormList;
+        Category category = categoryRepository.findByCategoryName((categoryName));
+        adFormList = repository.findAllByCategoryIdOrderByIdDesc(category.getId());
+        for(AdForm eachAd : adFormList) {
+            getAdvanced(eachAd);
+        }
+        return adFormList;
+    }
+
+    /**
      * Дополняет объект класса AdForm значениями полей
      * нормальной даты и наименованием категории
      * @param adForm обновляемый объект объявления
@@ -108,5 +127,23 @@ public class AdFormService {
         } else {
             throw new RuntimeException("Нет такой категории " + adForm.getCategoryId());
         }
+    }
+
+    /**
+     * Получаем значение цены для выбранного объявления
+     * @param adForm - выбранное объявление
+     * @return String для использования в model
+     */
+    public String getPriceValue(AdForm adForm) {
+        return adForm.getPriceValue() == 0f ? "Не определена" : adForm.getPriceValue().toString();
+    }
+
+    /**
+     * Получаем значение типа вылюты для выбранного объявления
+     * @param adForm - выбранное объявление
+     * @return String для использования в model
+     */
+    public String getPriceType(AdForm adForm) {
+        return adForm.getPriceValue() == 0f ? "" : adForm.getPrice().getPriceId();
     }
 }

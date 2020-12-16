@@ -28,4 +28,11 @@ public interface AdFormRepository extends JpaRepository<AdForm, Integer> {
      */
     List<AdForm> findAllByUserOrderByIdDesc(User user);
 
+    /**
+     * Полчение списка всех объявлений конкретной категории
+     * @param id - Long, id категории в БД
+     * @return List, список объявлений в порядке убывания (новые выше)
+     */
+    List<AdForm> findAllByCategoryIdOrderByIdDesc(Long id);
+
 }

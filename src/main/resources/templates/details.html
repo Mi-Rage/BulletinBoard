@@ -21,10 +21,11 @@
         <div>
             <h3 th:text="${title}"></h3>
             <p th:text="${content}"></p>
+            <p th:text="'Цена: ' + ${priceValue} + ' ' + ${priceType}"></p>
             <p th:text="'id: ' + ${id}"></p>
-            <p>Категория: <span th:text="${category}"></span></p>
+            <p>Категория: <a th:href="@{'/category-details/' + ${category}}"><span th:text="${category}"></span></a></p>
             <p th:text="'Дата создания: ' + ${dateSelectedAd}"></p>
-            <p>владелец: <a th:href="@{'/user-details/' + ${userName}}"><span th:text="${userName}"></span></a></p>
+            <p>Владелец: <a th:href="@{'/user-details/' + ${userName}}"><span th:text="${userName}"></span></a></p>
             <hr/>
         </div>
     </div>

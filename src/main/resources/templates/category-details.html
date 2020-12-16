@@ -15,9 +15,8 @@
 <div class="container-fluid text-left">
     <div class="col-sm-8 text-left">
         <div>
-            <h1>Все объявы пользователя '<span th:text="${userName}"></span>'.</h1>
+            <h1>Все объявы категории '<span th:text="${categoryName}"></span>'.</h1>
             <p th:text="'Найдено ' + ${adFormList.size()} + ' объявлений.'"></p>
-            <p th:text="${userName} + ' с нами с ' + ${regDate}"></p>
         </div>
         <hr/>
         <span th:if="${adFormList.size() == 0}">Объявлений пока нет.</span>
@@ -25,7 +24,7 @@
             <h3><a th:href="@{'/details/' + ${message.id}}"><p th:text="${message.title}"></p></a></h3>
             <p><span th:text="'Цена: ' + ${message.priceValue} + ' ' + ${message.price.priceId}"></span></p>
             <p><span th:text="'id: ' + ${message.id}"></span></p>
-            <p>Категория: <a th:href="@{'/category-details/' + ${message.categoryName}}"><span th:text="${message.categoryName}"></span></a></p>
+            <p>Категория: <a th:href="@{'/category-details/' + ${categoryName}}"><span th:text="${categoryName}"></span></a></p>
             <p><span th:text="'Дата создания: ' + ${message.normalDate}"></span></p>
             <hr/>
         </div>

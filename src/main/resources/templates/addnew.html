@@ -44,6 +44,24 @@
                               placeholder="Текст объявления" required="required"></textarea>
                 </div>
                 <!--                Конец блока ввода текста-->
+                <!--                Блок выбора цены-->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label for="price"></label>
+                        <input type="number" step="any" class="form-control" id="price"
+                               th:field="*{priceValue}"
+                               placeholder="Цена"
+                        />
+                        <label class="input-group-text" for="inputPriceSelect">Выберите валюту</label>
+                    </div>
+                    <select th:field="*{price}" class="custom-select" id="inputPriceSelect">
+                        <option th:each="eachPrice : ${prices}"
+                                th:value="${eachPrice.priceId}"
+                                th:text="${eachPrice.priceId} + ' - ' + ${eachPrice.priceName}">
+                        </option>
+                    </select>
+                </div>
+                <!--                Конец блока выбора цены-->
                 <button type="submit" class="btn btn-success">Сохранить</button>
             </form>
             <hr/>
