@@ -8,11 +8,11 @@ import development.bulletinboard.repository.CategoryRepository;
 import development.bulletinboard.repository.UserRepository;
 import development.bulletinboard.utility.Util;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * Сервис объявлений
@@ -33,6 +33,7 @@ public class AdFormService {
 
     /**
      * Сохранение объявления в БД
+     *
      * @param adForm - объект объявления
      */
     public void saveForm(AdForm adForm) {
@@ -42,6 +43,7 @@ public class AdFormService {
 
     /**
      * Получим объявление по его ID
+     *
      * @param id - ID объявления
      * @return - объект обявления с этим ID
      */
@@ -53,25 +55,28 @@ public class AdFormService {
 
     /**
      * Список объявлений, сотрированный по дате создания (новые - выше)
+     * Получаем последние 3 объявления
      * @return - список объектов AdForm
      */
     public List<AdForm> getLastAdForms() {
-        return StreamSupport
-                .stream(
-                        Spliterators.spliteratorUnknownSize(repository.findAll().iterator(), Spliterator.NONNULL),
-                        false)
-                .sorted(Comparator.reverseOrder())
-                .collect(Collectors.toList());
+        List<AdForm> adFormList = repository
+                .findAll(PageRequest.of(0, 3, Sort.by("id").descending()))
+                .toList();
+        for (AdForm eachAd : adFormList) {
+            getAdvanced(eachAd);
+        }
+        return adFormList;
     }
 
     /**
      * Поиск объявлений по заданному тексту
+     *
      * @param text - текст из веб-формы поиска
      * @return список объявлений с вхождением текста
      */
     public List<AdForm> getAdFormBySearch(String text) {
         List<AdForm> adFormList = repository.findAllByTitleContainsOrContentContainsOrderByIdDesc(text, text);
-        for(AdForm eachAd : adFormList) {
+        for (AdForm eachAd : adFormList) {
             getAdvanced(eachAd);
         }
         return adFormList;
@@ -79,6 +84,7 @@ public class AdFormService {
 
     /**
      * Поиск объявлений по запрошенному пользователю
+     *
      * @param userName - String имя пользователя, чьи объявы ищем
      * @return List список объявлений этого пользователя
      */
@@ -91,7 +97,7 @@ public class AdFormService {
             throw new RuntimeException("Нет такого пользователя " + userName);
         }
 
-        for(AdForm eachAd : adFormList) {
+        for (AdForm eachAd : adFormList) {
             getAdvanced(eachAd);
         }
         return adFormList;
@@ -99,6 +105,7 @@ public class AdFormService {
 
     /**
      * Поиск списка объявлений в заданной категории
+     *
      * @param categoryName - String, имя категории к которой ищем объявы
      * @return List список объявлений из этой категории
      */
@@ -106,7 +113,7 @@ public class AdFormService {
         List<AdForm> adFormList;
         Category category = categoryRepository.findByCategoryName((categoryName));
         adFormList = repository.findAllByCategoryIdOrderByIdDesc(category.getId());
-        for(AdForm eachAd : adFormList) {
+        for (AdForm eachAd : adFormList) {
             getAdvanced(eachAd);
         }
         return adFormList;
@@ -115,6 +122,7 @@ public class AdFormService {
     /**
      * Дополняет объект класса AdForm значениями полей
      * нормальной даты и наименованием категории
+     *
      * @param adForm обновляемый объект объявления
      */
     private void getAdvanced(AdForm adForm) {
@@ -131,6 +139,7 @@ public class AdFormService {
 
     /**
      * Получаем значение цены для выбранного объявления
+     *
      * @param adForm - выбранное объявление
      * @return String для использования в model
      */
@@ -140,6 +149,7 @@ public class AdFormService {
 
     /**
      * Получаем значение типа вылюты для выбранного объявления
+     *
      * @param adForm - выбранное объявление
      * @return String для использования в model
      */
