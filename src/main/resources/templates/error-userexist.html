@@ -12,18 +12,18 @@
 
 <div th:replace="~{navigation :: navigation('Объявления')}"></div>
 
-<div class="container-fluid text-left">
-    <div class="col-sm-8 text-left">
-        <div>
-            <h1>Ошибка!</h1>
-            <p>Пользователь уже существует.</p>
-            <p>Попробуйте ещё раз.</p>
-        </div>
-        <hr/>
-        <form th:action="@{/}" method="GET">
-            <input type="submit" class="btn btn-secondary" value="На главную" />
-        </form>
-    </div>
+<!--Блок приветствия-->
+<div class="container">
+    <h2 class="display-4">Ошибка!</h2>
+    <p class="lead">Пользователь уже существует.</p>
+    <p class="lead">Попробуйте ещё раз.</p>
+    <hr/>
+</div>
+<!--Конец блока приветствия-->
+<div class="container">
+    <form th:action="@{/}" method="GET">
+        <input type="submit" class="btn btn-secondary" value="На главную" />
+    </form>
 </div>
 
 </body>

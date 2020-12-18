@@ -12,29 +12,31 @@
 
 <div th:replace="~{navigation :: navigation('Объявления')}"></div>
 
-<div class="container-fluid text-left">
-    <div class="col-sm-8 text-left">
-        <div>
-            <h1>Просмотр пользователей</h1>
-        </div>
-        <hr/>
-        <table class="table">
-            <thead class="thead-light">
-            <tr>
-                <th>UserName</th>
-                <th>Password</th>
-                <th>Enabled</th>
-                <th>Role</th>
-            </tr>
-            </thead>
-            <tr th:each="user : ${allUsers}">
-                <td th:text="${user.userName}"></td>
-                <td th:text="${user.password}"></td>
-                <td th:text="${user.enabled}"></td>
-                <td th:each="role : ${allRoles}" th:if="${role.userName == user.userName}" th:text="${role.role}"></td>
-            </tr>
-        </table>
-    </div>
+<!--Блок приветствия-->
+<div class="container">
+    <h2 class="display-4">Кабинет администратора</h2>
+    <p class="lead">Просмотр пользователей</p>
+    <hr/>
+</div>
+<!--Конец блока приветствия-->
+
+<div class="container">
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th>UserName</th>
+            <th>Password</th>
+            <th>Enabled</th>
+            <th>Role</th>
+        </tr>
+        </thead>
+        <tr th:each="user : ${allUsers}">
+            <td th:text="${user.userName}"></td>
+            <td th:text="${user.password}"></td>
+            <td th:text="${user.enabled}"></td>
+            <td th:each="role : ${allRoles}" th:if="${role.userName == user.userName}" th:text="${role.role}"></td>
+        </tr>
+    </table>
 </div>
 
 </body>

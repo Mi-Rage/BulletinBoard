@@ -12,22 +12,32 @@
 
 <div th:replace="~{navigation :: navigation('Объявления')}"></div>
 
-<div class="container-fluid text-left">
-    <div class="col-sm-8 text-left">
-        <div>
-            <h1>Все объявы пользователя '<span th:text="${userName}"></span>'.</h1>
-            <p th:text="'Найдено ' + ${adFormList.size()} + ' объявлений.'"></p>
-            <p th:text="${userName} + ' с нами с ' + ${regDate}"></p>
-        </div>
-        <hr/>
-        <span th:if="${adFormList.size() == 0}">Объявлений пока нет.</span>
-        <div th:each="message : ${adFormList}">
-            <h3><a th:href="@{'/details/' + ${message.id}}"><p th:text="${message.title}"></p></a></h3>
-            <p><span th:text="'Цена: ' + ${message.priceValue} + ' ' + ${message.price.priceId}"></span></p>
-            <p><span th:text="'id: ' + ${message.id}"></span></p>
-            <p>Категория: <a th:href="@{'/category-details/' + ${message.categoryName}}"><span th:text="${message.categoryName}"></span></a></p>
-            <p><span th:text="'Дата создания: ' + ${message.normalDate}"></span></p>
-            <hr/>
+<!--Блок приветствия-->
+<div class="container">
+    <h2 class="display-4">Все объявы пользователя '<span th:text="${userName}"></span>'.</h2>
+    <p class="lead" th:text="'Найдено ' + ${adFormList.size()} + ' объявлений.'"></p>
+    <p class="lead" th:text="${userName} + ' с нами с ' + ${regDate}"></p>
+    <hr/>
+</div>
+<!--Конец блока приветствия-->
+
+<div class="container">
+    <span th:if="${adFormList.size() == 0}">Объявлений пока нет.</span>
+
+    <div th:each="adForm : ${adFormList}">
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">
+                    <a th:href="@{'/details/' + ${adForm.id}}"><p th:text="${adForm.title}"></p></a>
+                </h4>
+            </div>
+            <div class="card-body">
+                <p><span th:text="'Цена: ' + ${adForm.priceValue} + ' ' + ${adForm.price.priceId}"></span></p>
+                <p>Категория: <a th:href="@{'/category-details/' + ${adForm.categoryName}}"><span
+                        th:text="${adForm.categoryName}"></span></a></p>
+                <p><span th:text="'Дата создания: ' + ${adForm.normalDate}"></span></p>
+
+            </div>
         </div>
     </div>
 </div>
