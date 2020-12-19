@@ -49,13 +49,13 @@ public class AdFormService {
      */
     public AdForm getAdFormById(int id) {
         AdForm adForm = repository.getOne(id);
-        getAdvanced(adForm);
+        getAdvanced(adForm, false);
         return adForm;
     }
 
     /**
      * Список объявлений, сотрированный по дате создания (новые - выше)
-     * Получаем последние 3 объявления
+     * Получаем последние 3 объявления для превью на главной
      * @return - список объектов AdForm
      */
     public List<AdForm> getLastAdForms() {
@@ -63,7 +63,7 @@ public class AdFormService {
                 .findAll(PageRequest.of(0, 3, Sort.by("id").descending()))
                 .toList();
         for (AdForm eachAd : adFormList) {
-            getAdvanced(eachAd);
+            getAdvanced(eachAd, true);
         }
         return adFormList;
     }
@@ -77,7 +77,7 @@ public class AdFormService {
     public List<AdForm> getAdFormBySearch(String text) {
         List<AdForm> adFormList = repository.findAllByTitleContainsOrContentContainsOrderByIdDesc(text, text);
         for (AdForm eachAd : adFormList) {
-            getAdvanced(eachAd);
+            getAdvanced(eachAd, false);
         }
         return adFormList;
     }
@@ -98,7 +98,7 @@ public class AdFormService {
         }
 
         for (AdForm eachAd : adFormList) {
-            getAdvanced(eachAd);
+            getAdvanced(eachAd, false);
         }
         return adFormList;
     }
@@ -114,7 +114,7 @@ public class AdFormService {
         Category category = categoryRepository.findByCategoryName((categoryName));
         adFormList = repository.findAllByCategoryIdOrderByIdDesc(category.getId());
         for (AdForm eachAd : adFormList) {
-            getAdvanced(eachAd);
+            getAdvanced(eachAd, false);
         }
         return adFormList;
     }
@@ -122,15 +122,31 @@ public class AdFormService {
     /**
      * Дополняет объект класса AdForm значениями полей
      * нормальной даты и наименованием категории
+     * Проверяет надо ли уменьшить поля названия и содержимого для превью.
      *
      * @param adForm обновляемый объект объявления
+     * @param isPreview - boolean, обрезать ли поля для превью
      */
-    private void getAdvanced(AdForm adForm) {
+    private void getAdvanced(AdForm adForm, boolean isPreview) {
+        int TITLE_LENGTH = 15;
+        int CONTENT_LENGTH = 50;
+        String ENDING = "...";
+
         String normalDate = Util.getTimeFromStamp(adForm.getCreationTimestamp());
         adForm.setNormalDate(normalDate);
         Optional<Category> category = categoryRepository.findById(adForm.getCategoryId());
         if (category.isPresent()) {
             String categoryName = category.get().getCategoryName();
+            if (isPreview) {
+                if (adForm.getTitle().length() >= TITLE_LENGTH) {
+                    String titlePreview = Util.makePreview(adForm.getTitle(), TITLE_LENGTH) + ENDING;
+                    adForm.setTitle(titlePreview);
+                }
+                if (adForm.getContent().length() >= CONTENT_LENGTH) {
+                    String contentPreview = Util.makePreview(adForm.getContent(), CONTENT_LENGTH) + ENDING;
+                    adForm.setContent(contentPreview);
+                }
+            }
             adForm.setCategoryName(categoryName);
         } else {
             throw new RuntimeException("Нет такой категории " + adForm.getCategoryId());
